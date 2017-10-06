@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="java_Practice:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/java_Practice_jar</output-path>
+    <root id="archive" name="java_Practice.jar">
+      <element id="module-output" name="java_Practice" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/commons-lang3-3.6/commons-lang3-3.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/commons-logging-1.2/commons-logging-1.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
