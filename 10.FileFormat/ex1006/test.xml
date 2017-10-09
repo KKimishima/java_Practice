@@ -1,0 +1,9 @@
+<Hero>
+    <name>hoge</name>
+    <hp>100</hp>
+    <mp>50</mp>
+    <weapon>
+        <name>ソード</name>
+        <power>7</power>
+    </weapon>
+</Hero>
