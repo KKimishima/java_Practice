@@ -1,12 +1,7 @@
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.xml.transform.Result;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreatTb extends DBConnet{
   private String tb;
@@ -20,7 +15,6 @@ public class CreatTb extends DBConnet{
   // Sql
   @Override
   public void setSql(String tb){
-    this.tb = tb;
     Connection con  = null;
     try{
       con = DriverManager.getConnection(
@@ -28,7 +22,7 @@ public class CreatTb extends DBConnet{
           super.getUser(),super.getPass());
       // sqlの雛形を作製
       PreparedStatement cre = con.prepareStatement(
-          "create table tb2("+colum.get(0)+" varchar(10),"+colum.get(1)+" int,"+colum.get(2)+" int);"
+          "create table "+this.tb+"("+colum.get(0)+" varchar(10),"+colum.get(1)+" int,"+colum.get(2)+" int);"
       );
       // sqlに流し込み
       // sql実行
@@ -42,10 +36,40 @@ public class CreatTb extends DBConnet{
   }
 
   // セットカラム
+  @Override
   public void setCloum(String x,String y,String z){
     colum = new ArrayList();
     colum.add(x);
     colum.add(y);
     colum.add(z);
+  }
+  @Override
+  public  boolean checkTable(){
+    Connection con  = null;
+    try{
+      con = DriverManager.getConnection(
+          "jdbc:mariadb://"+super.getHost()+":"+super.getPort()+"/"+super.getDb(),
+          super.getUser(),super.getPass());
+      // sqlの雛形を作製
+      PreparedStatement cre = con.prepareStatement(
+          "show tables like ?;"
+      );
+      // sqlに流し込み
+      // sql実行
+      cre.setString(1,this.tb);
+      ResultSet r = cre.executeQuery();
+      // 成功失敗判別
+      if (r.next()) {
+        con.close();
+        return true;
+      }
+
+      con.close();
+    }catch (SQLException e2){
+      System.out.println("SQL実行失敗");
+      e2.printStackTrace();
+      System.exit(2);
+    }
+    return false;
   }
 }

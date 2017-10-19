@@ -50,5 +50,6 @@ abstract public class DBConnet {
   }
   abstract void setSql(String tb);
   abstract void setCloum(String x,String y,String z);
+  abstract boolean checkTable();
 
 }
